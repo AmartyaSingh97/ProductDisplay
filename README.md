@@ -3,7 +3,8 @@ Highlights of the Application: -
 
 - Jetpack Compose
 - Architecture - MVVM
-- Network Call - Retrofit
 - Dependency Injection - Hilt
+- LiveData
+- Network Call - Retrofit
 - Image Loading - Coil
 
