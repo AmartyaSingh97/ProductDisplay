@@ -77,6 +77,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0-RC")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
+
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("androidx.compose.ui:ui:1.5.4")
 }
 
 kapt {
