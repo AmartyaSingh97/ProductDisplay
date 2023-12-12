@@ -3,6 +3,7 @@ package com.example.productdisplay.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,13 +34,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.productdisplay.Poppins
 import com.example.productdisplay.data.Product
 import com.example.productdisplay.viewmodel.ProductViewModel
 
 @Composable
-fun ProductListScreen(viewModel: ProductViewModel) {
+fun ProductListScreen(viewModel: ProductViewModel, navController: NavController) {
 
     val products by viewModel.products.observeAsState()
     
@@ -72,11 +74,11 @@ fun ProductListScreen(viewModel: ProductViewModel) {
                     fontWeight = FontWeight.SemiBold,),
                 modifier = Modifier
                     .width(140.dp)
-                    .heightIn(min=16.dp)
+                    .heightIn(min = 16.dp)
                     .padding(top = 4.dp))
         }
     }else{
-        products!!.products?.let { ProductList(products = it) }
+        products!!.products?.let { ProductList(navController = navController,products = it) }
     }
 }
 
@@ -84,6 +86,7 @@ fun ProductListScreen(viewModel: ProductViewModel) {
 fun ProductList(
     modifier: Modifier = Modifier,
     products: List<Product>,
+    navController: NavController
 ) {
     
     LazyColumn(
@@ -93,7 +96,8 @@ fun ProductList(
             ProductListItem(
                 modifier = modifier,
                 product = products[it],
-                itemIndex = it
+                itemIndex = it,
+                navController = navController
             )
         }
     }
@@ -103,7 +107,8 @@ fun ProductList(
 fun ProductListItem(
     modifier: Modifier = Modifier,
     product: Product,
-    itemIndex: Int
+    itemIndex: Int,
+    navController: NavController
 ) {
 
     Card(
@@ -114,7 +119,13 @@ fun ProductListItem(
                 color = Color(0xFF4DC2F8),
                 shape = RoundedCornerShape(10.dp)
             )
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                navController.navigate(
+                    route = "ProductDetailsScreen/$itemIndex",
+                )
+            }
+        ,
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFffdab9),
         ),
@@ -151,7 +162,7 @@ fun ProductListItem(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .width(140.dp)
-                        .heightIn(min=16.dp)
+                        .heightIn(min = 16.dp)
                         .padding(top = 4.dp))
             }
 
@@ -175,8 +186,8 @@ fun ProductListItem(
                         fontWeight = FontWeight.SemiBold,),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .widthIn(max=160.dp)
-                        .heightIn(min=16.dp)
+                        .widthIn(max = 160.dp)
+                        .heightIn(min = 16.dp)
                         .padding(top = 4.dp))
 
                 Text(
@@ -190,8 +201,8 @@ fun ProductListItem(
                         fontWeight = FontWeight.SemiBold,),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .widthIn(max=160.dp)
-                        .heightIn(min=16.dp)
+                        .widthIn(max = 160.dp)
+                        .heightIn(min = 16.dp)
                         .padding(top = 4.dp))
 
 
@@ -206,8 +217,8 @@ fun ProductListItem(
                         fontWeight = FontWeight.SemiBold,),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .widthIn(max=160.dp)
-                        .heightIn(min=16.dp)
+                        .widthIn(max = 160.dp)
+                        .heightIn(min = 16.dp)
                         .padding(top = 4.dp))
 
                 Text(
@@ -221,16 +232,12 @@ fun ProductListItem(
                         fontWeight = FontWeight.SemiBold,),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .widthIn(max=160.dp)
-                        .heightIn(min=16.dp)
+                        .widthIn(max = 160.dp)
+                        .heightIn(min = 16.dp)
                         .padding(top = 4.dp))
 
             }
-
-
-
         }
-
     }
 
 }
